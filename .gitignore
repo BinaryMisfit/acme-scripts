@@ -2,3 +2,4 @@
 .idea/sonarlint
 .DS_Store
 config/
+ssl/
