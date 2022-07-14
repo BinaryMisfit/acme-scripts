@@ -15,6 +15,8 @@ for ENTRY in "${DOMAINS[@]}"; do
   printf -v ACME_ISSUE '%s --cert-home \"%s\" %s%s' "$ACME_ISSUE" "$LE_CERT_HOME" "$ACME_SH_ARGS" "${DOMAIN_ARGS[@]}"
   DOMAIN_PATH="$LE_CERT_HOME/${DOMAIN_INFO[0]}"
   DOMAIN_CERT="$DOMAIN_PATH/${DOMAIN_INFO[0]}.cer"
+  printf "Domain Path: %s" "${DOMAIN_PATH}"
+  printf "Domain Cert: %s" "${DOMAIN_CERT}"
   if [ ! -f "$DOMAIN_CERT" ]; then
     eval "$ACME_ISSUE"
   fi
@@ -22,6 +24,7 @@ for ENTRY in "${DOMAINS[@]}"; do
   printf -v ACME_DEPLOY '%s%s' "$ACME_DEPLOY" "${DOMAIN_ARGS[@]}"
   printf -v ACME_DEPLOY '%s --deploy-hook haproxy' "$ACME_DEPLOY"
   if [ -f "$DOMAIN_CERT" ]; then
+    printf "%s" "${ACME_DEPLOY}"
     eval "$ACME_DEPLOY"
   fi
 done
