@@ -14,13 +14,14 @@ for ENTRY in "${DOMAINS[@]}"; do
   printf -v ACME_ISSUE '%s --log %s/.acme.sh/acme.sh.log' "$ACME_ISSUE" "$HOME"
   printf -v ACME_ISSUE '%s --cert-home \"%s\" %s%s' "$ACME_ISSUE" "$LE_CERT_HOME" "$ACME_SH_ARGS" "${DOMAIN_ARGS[@]}"
   DOMAIN_PATH="$LE_CERT_HOME/${DOMAIN_INFO[0]}"
-  if [ ! -d "$DOMAIN_PATH" ]; then
+  DOMAIN_CERT="$DOMAIN_PATH/${DOMAIN_INFO[0]}.cer"
+  if [ ! -f "$DOMAIN_CERT" ]; then
     eval "$ACME_ISSUE"
   fi
   printf -v ACME_DEPLOY '%s/.acme.sh/acme.sh --deploy' "$HOME"
   printf -v ACME_DEPLOY '%s%s' "$ACME_DEPLOY" "${DOMAIN_ARGS[@]}"
   printf -v ACME_DEPLOY '%s -deploy-hook haproxy' "$ACME_DEPLOY"
-  if [ -d "$DOMAIN_PATH" ]; then
+  if [ -f "$DOMAIN_CERT" ]; then
     echo $ACME_DEPLOY
     #eval "$ACME_DEPLOY"
   fi
