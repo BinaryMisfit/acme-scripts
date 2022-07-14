@@ -22,7 +22,6 @@ for ENTRY in "${DOMAINS[@]}"; do
   printf -v ACME_DEPLOY '%s%s' "$ACME_DEPLOY" "${DOMAIN_ARGS[@]}"
   printf -v ACME_DEPLOY '%s --deploy-hook haproxy' "$ACME_DEPLOY"
   if [ -f "$DOMAIN_CERT" ]; then
-    printf "%s" "${ACME_DEPLOY}"
     eval "$ACME_DEPLOY"
   fi
 done
