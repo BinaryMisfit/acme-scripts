@@ -11,8 +11,7 @@ pushd /tmp/acme.sh >/dev/null || return
   --home "$HOME/.acme.sh" \
   --config-home "$LE_CONFIG_HOME" \
   --cert-home "$LE_CERT_HOME" \
-  --accountemail "$LE_EMAIL" \
-  "$ACME_SH_ARGS"
+  --accountemail "$LE_EMAIL"
 popd >/dev/null || return
 rm -rf /tmp/acme.sh
 pushd "$HOME/.acme.sh" >/dev/null || return
