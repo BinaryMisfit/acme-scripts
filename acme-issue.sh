@@ -17,4 +17,11 @@ for ENTRY in "${DOMAINS[@]}"; do
   if [ ! -d "$DOMAIN_PATH" ]; then
     eval "$ACME_ISSUE"
   fi
+  printf -v ACME_DEPLOY '%s/.acme.sh/acme.sh --deploy' "$HOME"
+  printf -v ACME_DEPLOY '%s%s' "$ACME_DEPLOY" "${DOMAIN_ARGS[@]}"
+  printf -v ACME_DEPLOY '%s -deploy-hook haproxy' "$ACME_DEPLOY"
+  if [ -d "$DOMAIN_PATH" ]; then
+    echo $ACME_DEPLOY
+    #eval "$ACME_DEPLOY"
+  fi
 done
