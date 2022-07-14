@@ -20,7 +20,7 @@ for ENTRY in "${DOMAINS[@]}"; do
   fi
   printf -v ACME_DEPLOY '%s/.acme.sh/acme.sh --deploy' "$HOME"
   printf -v ACME_DEPLOY '%s%s' "$ACME_DEPLOY" "${DOMAIN_ARGS[@]}"
-  printf -v ACME_DEPLOY '%s -deploy-hook haproxy' "$ACME_DEPLOY"
+  printf -v ACME_DEPLOY '%s --deploy-hook haproxy' "$ACME_DEPLOY"
   if [ -f "$DOMAIN_CERT" ]; then
     eval "$ACME_DEPLOY"
   fi
